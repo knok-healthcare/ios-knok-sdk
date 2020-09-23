@@ -1,0 +1,16 @@
+PODS:
+  - knokSDK (0.1.0)
+
+DEPENDENCIES:
+  - knokSDK (from `../`)
+
+EXTERNAL SOURCES:
+  knokSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  knokSDK: aa847a863fda376fd16dcf09b5c4a26ed4be9332
+
+PODFILE CHECKSUM: 522080c48980ebd78492a2f604d504f645126e15
+
+COCOAPODS: 1.9.3

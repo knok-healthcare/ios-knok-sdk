@@ -28,12 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03CEC2739FE702EA7485778A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		06AF558CED9DC8CDDFEDA581 /* knokSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = knokSDK.podspec; path = ../knokSDK.podspec; sourceTree = "<group>"; };
+		03CEC2739FE702EA7485778A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		06AF558CED9DC8CDDFEDA581 /* knokSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = knokSDK.podspec; path = ../knokSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		291611B73F518B37760646AB /* Pods_knokSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_knokSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32310CA72395BCFA6F869837 /* Pods-knokSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-knokSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-knokSDK_Tests/Pods-knokSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		441A9CDFF326ACFE044DA43E /* Pods-knokSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-knokSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-knokSDK_Example/Pods-knokSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
-		4716672E2EDEF435EA2EE62E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4716672E2EDEF435EA2EE62E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		48EAE73A58A1D49663646C81 /* Pods-knokSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-knokSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-knokSDK_Tests/Pods-knokSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		51B563CE3B35C1F5104E669A /* Pods-knokSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-knokSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-knokSDK_Example/Pods-knokSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* knokSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = knokSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +77,6 @@
 				48EAE73A58A1D49663646C81 /* Pods-knokSDK_Tests.debug.xcconfig */,
 				32310CA72395BCFA6F869837 /* Pods-knokSDK_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +226,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
