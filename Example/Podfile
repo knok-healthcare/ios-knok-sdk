@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'knokSDK_Example' do
+  pod 'knokSDK', :path => '../'
+
+  target 'knokSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
