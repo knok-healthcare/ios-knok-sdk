@@ -42,6 +42,6 @@ Pod::Spec.new do |s|
   # s.dependency 'AFNetworking', '~> 2.3'
   
   s.static_framework = true
-  s.dependency 'OpenTok', '2.16.3'
+  s.dependency = 'OpenTok', '2.16.3'
 
 end
