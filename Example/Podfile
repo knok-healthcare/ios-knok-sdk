@@ -7,6 +7,5 @@ target 'knokSDK_Example' do
   target 'knokSDK_Tests' do
     inherit! :search_paths
 
-    
   end
 end
