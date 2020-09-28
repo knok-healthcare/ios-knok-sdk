@@ -1,15 +1,22 @@
 PODS:
-  - knokSDK (0.0.1)
+  - knokSDK (0.0.2):
+    - OpenTok (= 2.16.3)
+  - OpenTok (2.16.3)
 
 DEPENDENCIES:
   - knokSDK (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - OpenTok
 
 EXTERNAL SOURCES:
   knokSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  knokSDK: ca191b41975d825f7400253b0e8804edd2b75564
+  knokSDK: 7988671a4791281377413a9bcc9bd3557e8d4659
+  OpenTok: e17e1333108837cf0669be5de8f3155d1eb7ac12
 
 PODFILE CHECKSUM: 2c3e482a5527edb2a511aa557f255528faba5bf2
 

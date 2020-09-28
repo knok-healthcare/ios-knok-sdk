@@ -35,7 +35,7 @@ it, simply add the following line to your Podfile:
 pod 'knokSDK'
 ```
 
-## Building with iOS SDK
+## Building with Knok iOS SDK
 
 [Tutorial](Tutorial.md)
 

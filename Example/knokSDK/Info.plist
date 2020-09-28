@@ -35,5 +35,9 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This feature is required to use video calls.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This feature is required to use video calls.</string>
 </dict>
 </plist>

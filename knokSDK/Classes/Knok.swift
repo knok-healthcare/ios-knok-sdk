@@ -9,6 +9,11 @@
 import Foundation
 import OpenTok
 
+public protocol SetupListener {
+    func onSetupSuccess()
+    func onSetupError(message: String)
+}
+
 public protocol SessionListener {
     func onStreamReceived(videoSubscriber: VideoSubscriber)
     func onConnected(videoPublisher: VideoPublisher)
@@ -17,6 +22,7 @@ public protocol SessionListener {
 
 public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscriberDelegate, OTSubscriberKitDelegate {
     
+    private var setupListener: SetupListener?
     private var sessionlistener: SessionListener?
     private var session: OTSession?
     private var videoToken: String?
@@ -24,10 +30,12 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
     private var apiKey: String?
     
     
-    public convenience init(with knokApiKey: String, sessionId: String, sessionToken: String) {
+    public convenience init(with knokApiKey: String, sessionId: String, sessionToken: String, setupListener: SetupListener) {
         self.init()
         self.videoSession = VideoSession(sessionId: sessionId, sessionToken: sessionToken)
         self.apiKey = knokApiKey
+        self.setupListener = setupListener
+        requestPermissions()
     }
 
     public func startVideoAppointment() {
@@ -39,7 +47,7 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
         }
         session!.connect(withToken: videoToken!, error: &error)
     }
-    
+        
     public func setSessionListener(videoSessionListener: SessionListener) {
         sessionlistener = videoSessionListener
     }
@@ -140,6 +148,98 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
     // MARK: - OTSubscriberKit delegate callbacks
     
     public func subscriberVideoDisabled(_ subscriber: OTSubscriberKit, reason: OTSubscriberVideoEventReason) {
+    }
+    
+    
+    // MARK: - Hardware access
+    
+    func requestPermissions() {
+        if TARGET_OS_SIMULATOR != 0 {
+            // target running in the simulator. just connect and return
+            setupListener?.onSetupSuccess()
+            return
+        }
+        
+        var allowedCameraAccess = false
+        var allowedMicAccess = false
+        
+        let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        switch cameraAuthStatus {
+        case .authorized:
+            allowedCameraAccess = true
+        case .denied:
+            alertPromptToAllowHardwareAccessViaSettings(hardware: NSLocalizedString("Camera", comment: "Camera"))
+            return
+        case .notDetermined:
+            alertToEncourageHardwareAccessInitially()
+            return
+        default:
+            alertToEncourageHardwareAccessInitially()
+            return
+        }
+                
+        let audioAuthStatus = AVAudioSession.sharedInstance().recordPermission()
+        switch audioAuthStatus {
+        case .granted:
+            allowedMicAccess = true
+        case .denied:
+            alertPromptToAllowHardwareAccessViaSettings(hardware: NSLocalizedString("Microphone", comment: "Microphone"))
+            return
+        case .undetermined:
+            requestMicrophoneAccess()
+            return
+        }
+
+        if allowedCameraAccess && allowedMicAccess {
+            setupListener?.onSetupSuccess()
+        }
+    }
+    
+    func alertToEncourageHardwareAccessInitially() {
+        
+        let alert = UIAlertController(
+            title: NSLocalizedString("IMPORTANT", comment: ""),
+            message: NSLocalizedString("Please allow camera and microphone access for Video calls", comment: ""),
+            preferredStyle: UIAlertController.Style.alert
+        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: "Ok"), style: .cancel) { alert in
+            if AVCaptureDevice.devices(for: AVMediaType.video).count > 0 {
+                AVCaptureDevice.requestAccess(for: AVMediaType.video) { _ in
+                    DispatchQueue.main.async() {
+                        self.requestPermissions()
+                    }
+                }
+            }
+        })
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+    }
+    
+    func alertPromptToAllowHardwareAccessViaSettings(hardware: String) {
+        
+        let alert = UIAlertController(
+            title: NSLocalizedString("IMPORTANT", comment: ""),
+            message: NSLocalizedString("Access required for Video calls. Please go to settings and change your preferences", comment: ""),
+            preferredStyle: UIAlertController.Style.alert
+        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: "Ok"), style: .cancel) { alert in
+            if AVCaptureDevice.devices(for: AVMediaType.video).count > 0 {
+                AVCaptureDevice.requestAccess(for: AVMediaType.video) { _ in
+                    DispatchQueue.main.async() {
+                        self.requestPermissions()
+                    }
+                }
+            }
+        })
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+    }
+    
+    func requestMicrophoneAccess() {
+        
+        AVAudioSession.sharedInstance().requestRecordPermission { _ in
+            DispatchQueue.main.async() {
+                self.requestPermissions()
+            }
+        }
     }
 
 }
