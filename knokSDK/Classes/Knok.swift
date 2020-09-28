@@ -30,14 +30,22 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
     private var apiKey: String?
     
     
-    public convenience init(with knokApiKey: String, sessionId: String, sessionToken: String, setupListener: SetupListener) {
+    public convenience init(with knokApiKey: String, sessionId: String, sessionToken: String) {
         self.init()
         self.videoSession = VideoSession(sessionId: sessionId, sessionToken: sessionToken)
         self.apiKey = knokApiKey
-        self.setupListener = setupListener
-        requestPermissions()
     }
 
+    
+    public func setup(listener: SetupListener) {
+        self.setupListener = listener
+        requestPermissions()
+    }
+        
+    public func setSessionListener(videoSessionListener: SessionListener) {
+        sessionlistener = videoSessionListener
+    }
+    
     public func startVideoAppointment() {
         session = OTSession(apiKey: self.apiKey!, sessionId: videoSession!.sessionId!, delegate: self)
         videoToken = videoSession!.sessionToken
@@ -46,10 +54,6 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
             processConnectionError(error)
         }
         session!.connect(withToken: videoToken!, error: &error)
-    }
-        
-    public func setSessionListener(videoSessionListener: SessionListener) {
-        sessionlistener = videoSessionListener
     }
 
     public func subscribe(videoSubscriber: VideoSubscriber) {
@@ -243,3 +247,4 @@ public class Knok: NSObject, OTSessionDelegate, OTPublisherDelegate, OTSubscribe
     }
 
 }
+

@@ -15,7 +15,7 @@ class ViewController: UIViewController, SetupListener, SessionListener {
     private let KNOK_API_KEY = ""
     private let sessionId = ""
     private let sessionToken = ""
-    
+
     private var knok: Knok!
     private var publisher: VideoPublisher!
     private var subscriber: VideoSubscriber!
@@ -34,7 +34,8 @@ class ViewController: UIViewController, SetupListener, SessionListener {
     }
     
     func setup() {
-        knok = Knok(with: KNOK_API_KEY, sessionId: sessionId, sessionToken: sessionToken, setupListener: self)
+        knok = Knok(with: KNOK_API_KEY, sessionId: sessionId, sessionToken: sessionToken)
+        knok.setup(listener: self)
     }
     
     func onSetupSuccess() {
@@ -71,4 +72,3 @@ class ViewController: UIViewController, SetupListener, SessionListener {
     }
 
 }
-
