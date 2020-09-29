@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name             = 'knokSDK'
-  s.version          = '0.0.4'
+  s.version          = '0.0.5'
   s.summary          = 'knok library'
   s.description      = <<-DESC
   Private library to access knok services.
